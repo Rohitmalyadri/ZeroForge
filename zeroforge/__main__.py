@@ -22,6 +22,7 @@ if str(root_dir) not in sys.path:
 
 from cli.parser import build_parser, VERSION
 from cli.commands import dispatch
+from cli.selector import run_selector
 from core.engine import Engine
 from storage.database import Database
 from utils.errors import StorageError
@@ -46,22 +47,22 @@ def main(argv: list[str] | None = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
 
-    if not args.command:
-        parser.print_help()
-        return 0
-
     # Determine database path
     db_path = Path(args.db) if args.db else get_default_db_path()
 
     try:
         db = Database(db_path)
         db.initialize()
-        engine = Engine(db)
     except StorageError as exc:
         print(f"ERROR: Database initialization failed: {exc}", file=sys.stderr)
         return 1
 
+    # If no sub-command provided, launch the Initial Interface Selector
+    if not args.command:
+        return run_selector(db, parser)
+
     try:
+        engine = Engine(db)
         return dispatch(engine, args)
     except KeyboardInterrupt:
         print("\nAborted.", file=sys.stderr)
