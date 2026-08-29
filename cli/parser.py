@@ -179,6 +179,16 @@ def build_parser() -> argparse.ArgumentParser:
     sub.add_parser("ready", help="List tasks ready to work on (all deps satisfied)")
 
     # ------------------------------------------------------------------ #
+    # repl                                                                 #
+    # ------------------------------------------------------------------ #
+    sub.add_parser("repl", help="Start an interactive REPL shell")
+
+    # ------------------------------------------------------------------ #
+    # wizard                                                               #
+    # ------------------------------------------------------------------ #
+    sub.add_parser("wizard", help="Guided step-by-step task management wizard")
+
+    # ------------------------------------------------------------------ #
     # blocked                                                              #
     # ------------------------------------------------------------------ #
     sub.add_parser("blocked", help="List tasks that are blocked by incomplete dependencies")

@@ -578,5 +578,11 @@ def dispatch(engine: Engine, args) -> int:
         return cmd_plan(engine, args)
     elif command == "graph":
         return cmd_graph(engine, args)
+    elif command == "repl":
+        from cli.repl import run_repl
+        return run_repl(engine._db)
+    elif command == "wizard":
+        from cli.wizard import run_wizard
+        return run_wizard(engine._db)
     else:
         return 2
