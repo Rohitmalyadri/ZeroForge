@@ -56,7 +56,80 @@ python -m zeroforge --version
 python -m zeroforge --help
 ```
 
-### Complete 2-Minute Walkthrough
+### Three Ways to Use ZeroForge
+
+**Option 1: Guided Wizard** (Recommended for new users)
+
+```bash
+python -m zeroforge wizard
+```
+
+The wizard provides a friendly, step-by-step interface:
+
+```
+╔══════════════════════════════════════════╗
+║     ZeroForge Guided Wizard             ║
+║     Step-by-step task management        ║
+╚══════════════════════════════════════════╝
+
+  What would you like to do?
+    1. Create a new task
+    2. View my tasks
+    3. Complete a task
+    4. See what I should work on
+    5. View dependency graph
+    6. Exit the wizard
+```
+
+Create tasks using natural language dates:
+```
+  Deadline: tomorrow, next friday, in 7 days, or 2026-09-15
+```
+
+**Option 2: Interactive REPL** (Power user mode)
+
+```bash
+python -m zeroforge repl
+```
+
+```
+zf > add Design Database --priority high
+[OK] Created task #1: Design Database
+   Priority  : HIGH
+
+zf > add Build API --priority critical --after 1
+[OK] Created task #2: Build API
+
+zf > ready
+  #1  HIGH      READY        Design Database
+
+zf > done db   ← Fuzzy matching!
+[OK] Completed task #1: Design Database
+  Tasks now ready:
+    #2  CRITICAL  Build API
+```
+
+Features:
+- Command history (up/down arrows)
+- Tab completion
+- Aliases: `ls` = `list`, `rm` = `delete`, `q` = `quit`
+- Fuzzy task search: `done db` finds "Design Database"
+
+**Option 3: Direct Commands** (Scriptable)
+
+```bash
+python -m zeroforge add "Design Database" --priority high
+python -m zeroforge add "Build API" --priority critical --after 1
+python -m zeroforge add "Write Tests" --priority high --after 2
+python -m zeroforge add "Deploy" --priority critical --after 3
+python -m zeroforge ready
+python -m zeroforge plan
+python -m zeroforge graph
+```
+
+---
+
+## 4. Core Workflow Demo
 
 ```bash
 # 1. Create tasks with priorities and dependencies
@@ -86,22 +159,9 @@ python -m zeroforge dep add 1 --on 4
 # Output: ERROR: Dependency cycle detected: #1 -> #4 -> #3 -> #2 -> #1
 ```
 
-### Interactive Modes
-
-ZeroForge also provides two interactive interfaces for a better user experience:
-
-```bash
-# Interactive REPL shell (with history, tab completion, fuzzy matching)
-python -m zeroforge repl
-# Example: "done db" finds and marks "Design Database" as done
-
-# Guided wizard (step-by-step, menu-driven)
-python -m zeroforge wizard
-```
-
 ---
 
-## 4. Architecture Overview
+## 5. Architecture Overview
 
 ```
                       +-------------------------+
@@ -116,15 +176,21 @@ python -m zeroforge wizard
         |                          |                          |
 +-------v-------+          +-------v-------+          +-------v-------+
 |  Dependency   |          |   Scheduler   |          | SQLite Store  |
-|  Graph Engine |          |  (Multi-Key)  |          | (sqlite3 WAL) |
+|  Graph Engine |          |  (Multi-Key) |          | (sqlite3 WAL) |
 +---------------+          +---------------+          +---------------+
+
+Optional UI Layers:
++-------v-------+          +-------v-------+
+|  Interactive  |          |   Guided      |
+|  REPL Shell  |          |   Wizard      |
++---------------+          +---------------+
 ```
 
 For complete technical specifications, see [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 
 ---
 
-## 5. Standard Library Substitutions
+## 6. Standard Library Substitutions
 
 | External Package | ZeroForge Stdlib Replacement | Purpose |
 |---|---|---|
@@ -133,15 +199,18 @@ For complete technical specifications, see [docs/ARCHITECTURE.md](docs/ARCHITECT
 | `networkx` | `core/dependency.py` (custom graph) | DFS cycle detection & Kahn's topo sort |
 | `pydantic` | `dataclasses` + `core/validator.py` | Schema validation and domain models |
 | `rich` / `tabulate` | `utils/formatting.py` | Fixed-width table alignment & ASCII graph rendering |
-| `pytest` | `unittest` | Complete 35-test unit & integration test suite |
+| `pytest` | `unittest` | Complete 55-test unit & integration test suite |
 | `python-dateutil` | `datetime` | Timezone-aware UTC timestamps & ISO-8601 parsing |
 | `apscheduler` | `core/scheduler.py` | Multi-key priority & deadline ranking engine |
+| `IPython` / `prompt_toolkit` | `cli/repl.py` (readline) | Interactive shell with history & completion |
+| `fuzzywuzzy` / `rapidfuzz` | `cli/repl.py` (custom) | Fuzzy task matching & resolution |
+| `dateparser` / `humanize` | `cli/wizard.py` (datetime) | Natural language date parsing |
 
 Detailed replacement analysis: [STDLIB.md](STDLIB.md).
 
 ---
 
-## 6. Running Tests
+## 7. Running Tests
 
 ```bash
 python -m unittest discover tests
@@ -149,7 +218,7 @@ python -m unittest discover tests
 
 ---
 
-## 7. Zero-Dependency Proof
+## 8. Zero-Dependency Proof
 
 You can verify that no third-party runtime packages are imported or required:
 
@@ -160,6 +229,6 @@ python -c "import zeroforge; print('ZeroForge runs with 0 third-party dependenci
 
 ---
 
-## 8. License
+## 9. License
 
 MIT License. See [LICENSE](LICENSE) for details.
