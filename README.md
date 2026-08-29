@@ -42,19 +42,55 @@ ZeroForge answers:
 
 ---
 
-## 3. Quick Start & Demo Flow
+## 3. Quick Start & Launchers
 
-### Installation & Execution (Zero Setup)
+### Quick Start (Windows)
 
-ZeroForge requires only Python 3.9+ with no `pip install`:
+Double-click `run.bat` or run from Command Prompt / PowerShell:
+
+```cmd
+run.bat
+```
+
+### Quick Start (macOS / Linux)
 
 ```bash
-# Check version
-python -m zeroforge --version
-
-# View help
-python -m zeroforge --help
+./run.sh
+# or
+python3 -m zeroforge
 ```
+
+### Direct Launcher with Interface Selector
+
+Running ZeroForge without arguments launches the **Initial Interface Selector**:
+
+```bash
+python -m zeroforge
+```
+
+```text
+============================================================
+ZEROFORGE
+Dependency-Aware Task Engine
+============================================================
+
+Choose an interface:
+
+  1. Command Line
+     Run individual ZeroForge commands.
+
+  2. Interactive REPL
+     Work continuously inside ZeroForge.
+
+  3. Guided Wizard
+     Manage tasks through a guided interface.
+
+  4. Exit
+
+Select an option [1-4]:
+```
+
+---
 
 ### Three Ways to Use ZeroForge
 
@@ -199,7 +235,7 @@ For complete technical specifications, see [docs/ARCHITECTURE.md](docs/ARCHITECT
 | `networkx` | `core/dependency.py` (custom graph) | DFS cycle detection & Kahn's topo sort |
 | `pydantic` | `dataclasses` + `core/validator.py` | Schema validation and domain models |
 | `rich` / `tabulate` | `utils/formatting.py` | Fixed-width table alignment & ASCII graph rendering |
-| `pytest` | `unittest` | Complete 55-test unit & integration test suite |
+| `pytest` | `unittest` | Complete 64-test unit & integration test suite |
 | `python-dateutil` | `datetime` | Timezone-aware UTC timestamps & ISO-8601 parsing |
 | `apscheduler` | `core/scheduler.py` | Multi-key priority & deadline ranking engine |
 | `IPython` / `prompt_toolkit` | `cli/repl.py` (readline) | Interactive shell with history & completion |
