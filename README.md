@@ -68,8 +68,8 @@ The wizard provides a friendly, step-by-step interface:
 
 ```
 ╔══════════════════════════════════════════╗
-║     ZeroForge Guided Wizard             ║
-║     Step-by-step task management        ║
+║     ZeroForge Guided Wizard              ║
+║     Step-by-step task management         ║
 ╚══════════════════════════════════════════╝
 
   What would you like to do?
@@ -176,13 +176,13 @@ python -m zeroforge dep add 1 --on 4
         |                          |                          |
 +-------v-------+          +-------v-------+          +-------v-------+
 |  Dependency   |          |   Scheduler   |          | SQLite Store  |
-|  Graph Engine |          |  (Multi-Key) |          | (sqlite3 WAL) |
+|  Graph Engine |          |  (Multi-Key)  |          | (sqlite3 WAL) |
 +---------------+          +---------------+          +---------------+
 
 Optional UI Layers:
 +-------v-------+          +-------v-------+
 |  Interactive  |          |   Guided      |
-|  REPL Shell  |          |   Wizard      |
+|  REPL Shell   |          |   Wizard      |
 +---------------+          +---------------+
 ```
 
