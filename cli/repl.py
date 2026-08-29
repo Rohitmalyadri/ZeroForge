@@ -467,7 +467,7 @@ def _show_banner() -> None:
     print()
     print("  ╔══════════════════════════════════════════╗")
     print("  ║     ZeroForge Interactive REPL           ║")
-    print("  ║     Zero-dependency task engine         ║")
+    print("  ║     Zero-dependency task engine          ║")
     print("  ╚══════════════════════════════════════════╝")
     print()
     print("  Type 'help' for commands, 'quit' to exit.")

@@ -430,8 +430,8 @@ def run_wizard(db: Database) -> int:
     # Welcome
     print()
     print("  ╔══════════════════════════════════════════╗")
-    print("  ║     ZeroForge Guided Wizard             ║")
-    print("  ║     Step-by-step task management        ║")
+    print("  ║     ZeroForge Guided Wizard              ║")
+    print("  ║     Step-by-step task management         ║")
     print("  ╚══════════════════════════════════════════╝")
     print()
     print("  This wizard will help you manage your tasks without")
