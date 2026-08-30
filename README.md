@@ -235,7 +235,7 @@ For complete technical specifications, see [docs/ARCHITECTURE.md](docs/ARCHITECT
 | `networkx` | `core/dependency.py` (custom graph) | DFS cycle detection & Kahn's topo sort |
 | `pydantic` | `dataclasses` + `core/validator.py` | Schema validation and domain models |
 | `rich` / `tabulate` | `utils/formatting.py` | Fixed-width table alignment & ASCII graph rendering |
-| `pytest` | `unittest` | Complete 64-test unit & integration test suite |
+| `pytest` | `unittest` | Complete 92-test unit, edge-case & integration test suite |
 | `python-dateutil` | `datetime` | Timezone-aware UTC timestamps & ISO-8601 parsing |
 | `apscheduler` | `core/scheduler.py` | Multi-key priority & deadline ranking engine |
 | `IPython` / `prompt_toolkit` | `cli/repl.py` (readline) | Interactive shell with history & completion |
@@ -246,7 +246,58 @@ Detailed replacement analysis: [STDLIB.md](STDLIB.md).
 
 ---
 
-## 7. Running Tests
+## 7. Application Health Check
+
+Verify your environment, database, graph algorithms, and interface modules at any time:
+
+```bash
+python -m zeroforge health
+```
+
+```text
+============================================================
+                 ZEROFORGE HEALTH CHECK
+============================================================
+
+  Environment
+    [OK]    Python Version (>= 3.9)      v3.13.8
+    [OK]    Runtime Dependencies         0 third-party (100% stdlib)
+
+  Core Components
+    [OK]    Database & Migrations        SQLite WAL mode + Foreign keys initialized
+    [OK]    Task Storage (CRUD)          CRUD & cascade operations verified
+    [OK]    Dependency Graph             3-Color DFS cycle prevention & topological sort verified
+    [OK]    Planner / Scheduler          5-key deterministic multi-tier ranking verified
+
+  User Interfaces
+    [OK]    CLI Interface                Argparse command parser verified
+    [OK]    Interactive REPL             REPL commands, token parser & fuzzy search ready
+    [OK]    Guided Wizard                Guided wizard & natural date parser ready
+
+------------------------------------------------------------
+  Overall Status: HEALTHY
+------------------------------------------------------------
+```
+
+The health check executes in an isolated temporary database and is guaranteed **100% non-destructive** to your tasks.
+
+---
+
+## 8. Version Information
+
+```bash
+python -m zeroforge --version
+# or
+python -m zeroforge version
+```
+Output:
+```text
+ZeroForge v1.0.0
+```
+
+---
+
+## 9. Running Tests
 
 ```bash
 python -m unittest discover tests
@@ -254,7 +305,7 @@ python -m unittest discover tests
 
 ---
 
-## 8. Zero-Dependency Proof
+## 10. Zero-Dependency Proof
 
 You can verify that no third-party runtime packages are imported or required:
 
@@ -265,6 +316,7 @@ python -c "import zeroforge; print('ZeroForge runs with 0 third-party dependenci
 
 ---
 
-## 9. License
+## 11. License
 
 MIT License. See [LICENSE](LICENSE) for details.
+

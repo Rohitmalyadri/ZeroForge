@@ -74,11 +74,31 @@ python -m zeroforge ready
 python -m zeroforge done 1
 python -m zeroforge plan
 python -m zeroforge graph
+python -m zeroforge health
+python -m zeroforge --version
 ```
 
 ---
 
-## 4. Requirements & Zero-Dependency Guarantee
+## 4. Verification & Health Check
+
+You can verify that your ZeroForge installation is functioning and has zero third-party dependencies:
+
+```bash
+# Run application health check
+python -m zeroforge health
+
+# Verify version
+python -m zeroforge version
+
+# Run the 92-test automated suite
+python -m unittest discover tests
+```
+
+---
+
+## 5. Requirements & Zero-Dependency Guarantee
 
 - **Python 3.9+** (Standard Library only)
 - **Zero Third-Party Dependencies** — No `pip install` required.
+

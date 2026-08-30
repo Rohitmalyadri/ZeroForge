@@ -63,6 +63,8 @@ COMMANDS: list[Command] = [
     Command("blocked", [], "List BLOCKED tasks", ""),
     Command("plan", ["schedule"], "Generate execution plan", ""),
     Command("graph", ["visualise", "viz"], "Show dependency graph", ""),
+    Command("health", ["check", "doctor"], "Run application health check", ""),
+    Command("version", ["v"], "Display ZeroForge version", ""),
     Command("help", ["?"], "Show this help", "[command]"),
     Command("quit", ["exit", "q"], "Exit the REPL", ""),
 ]
@@ -431,6 +433,14 @@ def _execute(engine: Engine, tokens: list[str]) -> int:
     if cmd.name == "graph":
         from cli.commands import cmd_graph
         return cmd_graph(engine, args)
+
+    if cmd.name == "health":
+        from cli.commands import cmd_health
+        return cmd_health(engine, args)
+
+    if cmd.name == "version":
+        from cli.commands import cmd_version
+        return cmd_version(engine, args)
 
     print(f"Command '{cmd.name}' not yet implemented in REPL.", file=sys.stderr)
     return 1

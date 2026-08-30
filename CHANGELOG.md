@@ -16,5 +16,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Core Dependency Engine (`core/dependency.py`)**: 3-Color DFS cycle detection ($O(V+E)$), Kahn's topological sort, and runtime derived `READY`/`BLOCKED` status determination.
 - **Deterministic Scheduler (`core/scheduler.py`)**: 5-key multi-tier priority & deadline ranking engine preventing task starvation.
 - **SQLite Persistence (`storage/database.py`)**: Embedded ACID relational storage with foreign key enforcement and `ON DELETE CASCADE` edge handling.
+- **Application Health Check (`core/health.py`)**: Built-in non-destructive environment and component verification (`python -m zeroforge health`).
+- **Version Subcommand and Standard Flag**: Support for `python -m zeroforge --version` and `python -m zeroforge version` with single source of truth in `zeroforge/__init__.py`.
 - **Quickstart Guide (`QUICKSTART.md`)**: Getting started guide for Windows, macOS, and Linux users.
-- **Comprehensive Test Suite (`tests/`)**: 64 unit and integration test cases covering models, validators, graph algorithms, scheduler, storage, REPL, wizard, and the interface selector.
+- **Comprehensive Test Suite (`tests/`)**: 92 unit, integration, and edge-case test cases covering models, validators, graph algorithms, scheduler, storage, REPL, wizard, health check, and interface selector.
+

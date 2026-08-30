@@ -536,6 +536,30 @@ def cmd_graph(engine: Engine, args) -> int:
 
 
 # ---------------------------------------------------------------------------
+# Command: health
+# ---------------------------------------------------------------------------
+
+def cmd_health(engine: Engine, args) -> int:
+    from core.health import run_health_check
+    ok, report = run_health_check()
+    _out(report)
+    return 0 if ok else 1
+
+
+# ---------------------------------------------------------------------------
+# Command: version
+# ---------------------------------------------------------------------------
+
+def cmd_version(engine: Engine, args) -> int:
+    try:
+        from zeroforge import __version__
+    except ImportError:
+        __version__ = "1.0.0"
+    _out(f"ZeroForge v{__version__}")
+    return 0
+
+
+# ---------------------------------------------------------------------------
 # Dispatcher
 # ---------------------------------------------------------------------------
 
@@ -578,6 +602,10 @@ def dispatch(engine: Engine, args) -> int:
         return cmd_plan(engine, args)
     elif command == "graph":
         return cmd_graph(engine, args)
+    elif command == "health":
+        return cmd_health(engine, args)
+    elif command == "version":
+        return cmd_version(engine, args)
     elif command == "repl":
         from cli.repl import run_repl
         return run_repl(engine._db)
@@ -586,3 +614,4 @@ def dispatch(engine: Engine, args) -> int:
         return run_wizard(engine._db)
     else:
         return 2
+

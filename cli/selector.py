@@ -59,6 +59,8 @@ def _handle_cli_choice(parser: Optional[argparse.ArgumentParser]) -> None:
     print("    python -m zeroforge done 1")
     print("    python -m zeroforge plan")
     print("    python -m zeroforge graph")
+    print("    python -m zeroforge health")
+    print("    python -m zeroforge --version")
     print()
     if parser is not None:
         print("  Available Commands & Options:")

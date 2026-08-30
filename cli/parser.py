@@ -9,7 +9,10 @@ from __future__ import annotations
 
 import argparse
 
-VERSION = "1.0.0"
+try:
+    from zeroforge import __version__ as VERSION
+except ImportError:
+    VERSION = "1.0.0"
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -31,13 +34,14 @@ def build_parser() -> argparse.ArgumentParser:
             "  zeroforge done 1\n"
             "  zeroforge plan\n"
             "  zeroforge graph\n"
+            "  zeroforge health\n"
         ),
     )
 
     parser.add_argument(
         "--version", "-V",
         action="version",
-        version=f"ZeroForge {VERSION}",
+        version=f"ZeroForge v{VERSION}",
     )
 
     parser.add_argument(
@@ -202,5 +206,15 @@ def build_parser() -> argparse.ArgumentParser:
     # graph                                                                #
     # ------------------------------------------------------------------ #
     sub.add_parser("graph", help="Visualise the dependency graph")
+
+    # ------------------------------------------------------------------ #
+    # health                                                               #
+    # ------------------------------------------------------------------ #
+    sub.add_parser("health", help="Run application health check and verify environment")
+
+    # ------------------------------------------------------------------ #
+    # version                                                              #
+    # ------------------------------------------------------------------ #
+    sub.add_parser("version", help="Display ZeroForge version")
 
     return parser
